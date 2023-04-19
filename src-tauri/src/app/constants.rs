@@ -1,0 +1,13 @@
+pub const FILE_MENU_TITLE: &str = "File";
+pub const HELP_MENU_TITLE: &str = "Help";
+pub const RELOAD_TITLE: &str = "Reload";
+pub const RELOAD_ACCELERATOR: &str = "CmdOrCtrl+R";
+pub const ABOUT_TITLE: &str = "About ImageShrink";
+pub const DEVTOOLS_TITLE: &str = "Open Developer Tools";
+pub const DEVTOOLS_ACCELERATOR: &str = "CmdOrCtrl+Shift+I";
+pub const MAIN_WINDOW_URL: &'static str = "index.html";
+pub const MAIN_WINDOW_LABEL: &'static str = "main";
+pub const MAIN_WINDOW_TITLE: &'static str = "Main Window";
+pub const ABOUT_WINDOW_URL: &'static str = "about";
+pub const ABOUT_WINDOW_LABEL: &'static str = "about";
+pub const ABOUT_WINDOW_TITLE: &'static str = "About ImageShrink";
