@@ -8,6 +8,7 @@ import {
   imageDirName,
 } from '../constants';
 import { FaImages } from 'react-icons/fa';
+import { invoke } from '@tauri-apps/api';
 
 const Home = () => {
   const [outputPath, setOutputPath] = useState<string>('');
@@ -45,13 +46,22 @@ const Home = () => {
     fetchHomeDirPath();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await invoke('minimize_image', { imagePath, quality });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="container center-align">
       <h3>
         <FaImages /> {appName}
       </h3>
       <p>Choose an image to resize</p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="file-field input-field">
           <div className="btn">
             <span onClick={uploadImage}>Browse</span>
