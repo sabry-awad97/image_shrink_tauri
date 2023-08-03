@@ -1,6 +1,6 @@
 # ImageShrink
 
-The ImageShrink app is built using React with Typescript and leverages the Tauri framework for native capabilities. It allows users to choose an image, specify the desired quality, and resize the image to achieve a smaller file size.
+The ImageShrink app is a user-friendly application built with React and Tauri framework that allows users to easily resize images. Users can select an image from their local file system, adjust the desired quality using a slider, and then resize the image to reduce its file size. The app provides an intuitive interface and displays the output path where the resized image is saved. With its simple yet effective functionality, the ImageShrink app is a convenient tool for anyone looking to optimize image sizes for various purposes.
 
 ## Recommended IDE Setup
 
