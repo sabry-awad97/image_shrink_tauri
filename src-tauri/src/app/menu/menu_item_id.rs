@@ -1,3 +1,5 @@
+use std::fmt;
+
 #[derive(PartialEq, Eq, Hash)]
 pub enum MenuItemId {
     Reload,
@@ -5,13 +7,19 @@ pub enum MenuItemId {
     DevTools,
 }
 
+impl fmt::Display for MenuItemId {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            MenuItemId::Reload => write!(f, "Reload"),
+            MenuItemId::About => write!(f, "About"),
+            MenuItemId::DevTools => write!(f, "DevTools"),
+        }
+    }
+}
+
 impl From<MenuItemId> for String {
     fn from(id: MenuItemId) -> Self {
-        match id {
-            MenuItemId::Reload => "Reload".to_string(),
-            MenuItemId::About => "About".to_string(),
-            MenuItemId::DevTools => "DevTools".to_string(),
-        }
+        id.to_string()
     }
 }
 
