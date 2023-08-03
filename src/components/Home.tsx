@@ -1,11 +1,35 @@
 import { homeDir, resolve } from '@tauri-apps/api/path';
+import { open } from '@tauri-apps/api/dialog';
 import { useEffect, useState } from 'react';
-import { DEFAULT_QUALITY, appName, imageDirName } from '../constants';
+import {
+  DEFAULT_QUALITY,
+  IMAGE_EXTENSIONS,
+  appName,
+  imageDirName,
+} from '../constants';
 import { FaImages } from 'react-icons/fa';
 
 const Home = () => {
   const [outputPath, setOutputPath] = useState<string>('');
   const [quality, setQuality] = useState<number>(DEFAULT_QUALITY);
+  const [imagePath, setImagePath] = useState<string>('');
+
+  const uploadImage = async () => {
+    try {
+      const imagePath = await open({
+        filters: [
+          {
+            name: 'Image',
+            extensions: IMAGE_EXTENSIONS,
+          },
+        ],
+      });
+
+      setImagePath(imagePath as string);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleQualityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuality(parseInt(event.target.value));
@@ -30,7 +54,7 @@ const Home = () => {
       <form>
         <div className="file-field input-field">
           <div className="btn">
-            <span>Browse</span>
+            <span onClick={uploadImage}>Browse</span>
           </div>
 
           <div className="file-path-wrapper">
@@ -38,6 +62,8 @@ const Home = () => {
               type="text"
               className="file-path validate"
               placeholder="Upload file"
+              value={imagePath}
+              onChange={e => setImagePath(e.target.value)}
             />
           </div>
         </div>
