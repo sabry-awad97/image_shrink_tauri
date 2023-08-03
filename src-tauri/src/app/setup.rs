@@ -1,31 +1,10 @@
 use std::error::Error;
-use tauri::{App, CustomMenuItem, Manager, Menu, MenuItem, Submenu, WindowBuilder};
+use tauri::{App, Manager, WindowBuilder};
+
+use super::menu::MainMenu;
 
 pub fn init(app: &mut App) -> Result<(), Box<dyn Error>> {
-    let file_submenu = Submenu::new(
-        "File",
-        Menu::with_items([
-            CustomMenuItem::new("reload", "Reload")
-                .accelerator("CmdOrCtrl+R")
-                .into(),
-            MenuItem::Separator.into(),
-            MenuItem::Quit.into(),
-        ]),
-    );
-
-    let help_submenu = Submenu::new(
-        "Help",
-        Menu::with_items([
-            CustomMenuItem::new("about", "About").into(),
-            CustomMenuItem::new("dev_tools", "Open Developer Tools")
-                .accelerator("CmdOrCtrl+Shift+I")
-                .into(),
-        ]),
-    );
-
-    let menu = Menu::new()
-        .add_submenu(file_submenu)
-        .add_submenu(help_submenu);
+    let main_menu = MainMenu::new();
 
     let handle = app.handle();
     let mut window_builder =
@@ -35,7 +14,7 @@ pub fn init(app: &mut App) -> Result<(), Box<dyn Error>> {
             .fullscreen(false)
             .resizable(true);
 
-    window_builder = window_builder.menu(menu);
+    window_builder = window_builder.menu(main_menu.get_menu().clone());
 
     let win = window_builder.build()?;
     let win_clone = win.clone();
