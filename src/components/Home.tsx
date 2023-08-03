@@ -1,7 +1,6 @@
 import { homeDir, resolve } from '@tauri-apps/api/path';
 import { useEffect, useState } from 'react';
-
-const imageDirName = 'imageshrink';
+import { imageDirName } from '../constants';
 
 const Home = () => {
   const [outputPath, setOutputPath] = useState<string>('');
