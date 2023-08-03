@@ -2,7 +2,7 @@
 name = "image_shrink"
 version = "0.0.0"
 description = "A Tauri App"
-authors = ["you"]
+authors = ["Sabry Awad <dr.sabry1997@gmail.com>"]
 license = ""
 repository = ""
 edition = "2021"
