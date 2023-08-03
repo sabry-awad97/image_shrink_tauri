@@ -1,10 +1,15 @@
 import { homeDir, resolve } from '@tauri-apps/api/path';
 import { useEffect, useState } from 'react';
-import { appName, imageDirName } from '../constants';
+import { DEFAULT_QUALITY, appName, imageDirName } from '../constants';
 import { FaImages } from 'react-icons/fa';
 
 const Home = () => {
   const [outputPath, setOutputPath] = useState<string>('');
+  const [quality, setQuality] = useState<number>(DEFAULT_QUALITY);
+
+  const handleQualityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuality(parseInt(event.target.value));
+  };
 
   const fetchHomeDirPath = async () => {
     const homeDirPath = await homeDir();
@@ -42,8 +47,14 @@ const Home = () => {
           <em>The lower the quality, the smaller the file size</em>
         </p>
         <p className="range-field">
-          <input type="range" min="0" max="100" value="50" />
-          <span id="quality-value">50</span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={quality}
+            onChange={handleQualityChange}
+          />
+          <span id="quality-value">{quality}</span>
         </p>
 
         <input type="submit" value="Resize" className="btn black" />
