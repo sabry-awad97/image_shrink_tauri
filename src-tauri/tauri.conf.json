@@ -40,17 +40,6 @@
     "security": {
       "csp": null
     },
-    "windows": [
-      {
-        "label": "about",
-        "fullscreen": false,
-        "resizable": false,
-        "visible": false,
-        "title": "About ImageShrink",
-        "width": 300,
-        "height": 300,
-        "url": "about"
-      }
-    ]
+    "windows": []
   }
 }

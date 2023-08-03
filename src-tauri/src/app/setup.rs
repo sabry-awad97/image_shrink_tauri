@@ -1,5 +1,5 @@
 use std::error::Error;
-use tauri::{App, CustomMenuItem, Menu, MenuItem, Submenu, WindowBuilder};
+use tauri::{App, CustomMenuItem, Manager, Menu, MenuItem, Submenu, WindowBuilder};
 
 pub fn init(app: &mut App) -> Result<(), Box<dyn Error>> {
     let file_submenu = Submenu::new(
@@ -12,7 +12,20 @@ pub fn init(app: &mut App) -> Result<(), Box<dyn Error>> {
             MenuItem::Quit.into(),
         ]),
     );
-    let menu = Menu::new().add_submenu(file_submenu);
+
+    let help_submenu = Submenu::new(
+        "Help",
+        Menu::with_items([
+            CustomMenuItem::new("about", "About").into(),
+            CustomMenuItem::new("dev_tools", "Open Developer Tools")
+                .accelerator("CmdOrCtrl+Shift+I")
+                .into(),
+        ]),
+    );
+
+    let menu = Menu::new()
+        .add_submenu(file_submenu)
+        .add_submenu(help_submenu);
 
     let handle = app.handle();
     let mut window_builder =
@@ -32,7 +45,27 @@ pub fn init(app: &mut App) -> Result<(), Box<dyn Error>> {
             "reload" => {
                 win_clone.eval("window.location.reload()").unwrap();
             }
-            "about" => {}
+            "about" => {
+                let handle = win_clone.app_handle();
+
+                let window = if handle.get_window("about").is_none() {
+                    WindowBuilder::new(&handle, "about", tauri::WindowUrl::App("about".into()))
+                        .title("About ImageShrink")
+                        .inner_size(300.0, 300.0)
+                        .fullscreen(false)
+                        .resizable(true)
+                        .build()
+                        .unwrap()
+                } else {
+                    handle.get_window("about").unwrap()
+                };
+
+                window.show().unwrap();
+                window.set_focus().unwrap();
+            }
+            "dev_tools" => {
+                win_clone.open_devtools();
+            }
             _ => {}
         }
     });
