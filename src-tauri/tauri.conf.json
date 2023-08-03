@@ -42,13 +42,6 @@
     },
     "windows": [
       {
-        "fullscreen": false,
-        "resizable": true,
-        "title": "ImageShrink",
-        "width": 800,
-        "height": 600
-      },
-      {
         "label": "about",
         "fullscreen": false,
         "resizable": false,
