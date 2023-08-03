@@ -1,4 +1,8 @@
+pub mod menu_item_id;
+
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
+
+use self::menu_item_id::MenuItemId;
 
 pub struct MainMenu {
     menu: Menu,
@@ -21,7 +25,7 @@ impl MainMenu {
         Submenu::new(
             "File",
             Menu::with_items([
-                CustomMenuItem::new("reload", "Reload")
+                CustomMenuItem::new(MenuItemId::Reload, "Reload")
                     .accelerator("CmdOrCtrl+R")
                     .into(),
                 MenuItem::Separator.into(),
@@ -34,8 +38,8 @@ impl MainMenu {
         Submenu::new(
             "Help",
             Menu::with_items([
-                CustomMenuItem::new("about", "About").into(),
-                CustomMenuItem::new("dev_tools", "Open Developer Tools")
+                CustomMenuItem::new(MenuItemId::About, "About").into(),
+                CustomMenuItem::new(MenuItemId::DevTools, "Open Developer Tools")
                     .accelerator("CmdOrCtrl+Shift+I")
                     .into(),
             ]),
